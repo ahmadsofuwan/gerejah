@@ -70,4 +70,8 @@ class API extends CI_Controller
             redirect(base_url('admin/Dashboard/input_tentang'));
         }
     }
+    public function getTime()
+    {
+        echo strtotime("-2 hours");
+    }
 }
