@@ -15,7 +15,7 @@ class Tata_ibadah extends CI_Controller
         }
         $this->load->model('Tata_ibadah_model');
         $this->load->library('form_validation');
-        set_timezone("Asia/Jakarta");
+        set_timezone("Asia/Jayapura");
     }
 
     public function index()
@@ -153,8 +153,8 @@ class Tata_ibadah extends CI_Controller
         $row = $this->Tata_ibadah_model->get_by_id($id);
 
         if ($row) {
-            if(isset($row->file_path) && $row->file_path!=NULL){
-                if(file_exists($row->file_path)) unlink($row->file_path);
+            if (isset($row->file_path) && $row->file_path != NULL) {
+                if (file_exists($row->file_path)) unlink($row->file_path);
             }
             $this->Tata_ibadah_model->delete($id);
             $this->session->set_flashdata('message', 'Data berhasil dihapus');

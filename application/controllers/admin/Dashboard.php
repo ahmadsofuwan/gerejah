@@ -15,7 +15,7 @@ class Dashboard extends CI_Controller
         }
         $this->load->model('Users_model');
         $this->load->library('form_validation');
-        set_timezone("Asia/Jakarta");
+        set_timezone("Asia/Jayapura");
     }
 
     public function index()

@@ -18,23 +18,23 @@ class Jadwal extends CI_Controller
         $this->load->model('Jenis_ibadah_model');
         $this->load->model("Rayon_model");
         $this->load->library('form_validation');
-        set_timezone("Asia/Jakarta");
+        set_timezone("Asia/Jayapura");
     }
 
     public function index($id_jenis = NULL)
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        if($id_jenis == NULL){
-            if($this->session->userdata("jenis_ibadah")!=NULL)$id_jenis= $this->session->userdata("jenis_ibadah");
+        if ($id_jenis == NULL) {
+            if ($this->session->userdata("jenis_ibadah") != NULL) $id_jenis = $this->session->userdata("jenis_ibadah");
         }
 
         if ($q <> '') {
-            $config['base_url'] = base_url() . 'admin/Jadwal/index/'.$id_jenis.'?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'admin/Jadwal/index/'.$id_jenis.'?q=' . urlencode($q);
+            $config['base_url'] = base_url() . 'admin/Jadwal/index/' . $id_jenis . '?q=' . urlencode($q);
+            $config['first_url'] = base_url() . 'admin/Jadwal/index/' . $id_jenis . '?q=' . urlencode($q);
         } else {
-            $config['base_url'] = base_url() . 'admin/Jadwal/index/'.$id_jenis;
-            $config['first_url'] = base_url() . 'admin/Jadwal/index/'.$id_jenis;
+            $config['base_url'] = base_url() . 'admin/Jadwal/index/' . $id_jenis;
+            $config['first_url'] = base_url() . 'admin/Jadwal/index/' . $id_jenis;
         }
 
         $config['per_page'] = 10;
@@ -45,7 +45,7 @@ class Jadwal extends CI_Controller
         $this->load->library('pagination');
         $this->pagination->initialize($config);
         $jenis = NULL;
-        if(isset($this->Jenis_ibadah_model->get_by_id($id_jenis)->jenis)) $jenis = $this->Jenis_ibadah_model->get_by_id($id_jenis)->jenis;
+        if (isset($this->Jenis_ibadah_model->get_by_id($id_jenis)->jenis)) $jenis = $this->Jenis_ibadah_model->get_by_id($id_jenis)->jenis;
         $this->session->set_userdata("jenis_ibadah", $id_jenis);
         $data = array(
             'jadwal_data' => $jadwal,

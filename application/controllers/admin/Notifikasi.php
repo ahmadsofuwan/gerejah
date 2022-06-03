@@ -17,7 +17,7 @@ class Notifikasi extends CI_Controller
         $this->load->model('Notifikasi_view_model');
         $this->load->model('Jenis_ibadah_model');
         $this->load->library('form_validation');
-        set_timezone("Asia/Jakarta");
+        set_timezone("Asia/Jayapura");
     }
 
     public function index()
@@ -77,7 +77,7 @@ class Notifikasi extends CI_Controller
             $this->create();
         } else {
             $hp = $this->input->post('hp', TRUE);
-            if(substr($hp, 0, 1) == "+"){
+            if (substr($hp, 0, 1) == "+") {
                 $hp = substr($hp, 1);
             };
             if (substr($hp, 0, 1) == "0") {

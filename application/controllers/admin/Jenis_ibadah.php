@@ -14,7 +14,7 @@ class Jenis_ibadah extends CI_Controller
             return redirect("Welcome/login");
         }
         $this->load->library('form_validation');
-        set_timezone("Asia/Jakarta");
+        set_timezone("Asia/Jayapura");
     }
 
     public function index()

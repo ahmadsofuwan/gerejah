@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * Unlink a file, but its safe with empty values
@@ -9,24 +9,23 @@
  * @param	string	$path 	the file path
  * @return	return TRUE if success, false otherwise.
  */
- 
-if (! function_exists('unlink_safe'))
-{
+
+if (!function_exists('unlink_safe')) {
 	function unlink_safe($path)
 	{
-		if ($path!=NULL) {
-            if (file_exists($path)) {
-            	if (is_dir($path)) {
-            		unlink($path);
-            		return TRUE;
-            	}
-            }else {
+		if ($path != NULL) {
+			if (file_exists($path)) {
+				if (is_dir($path)) {
+					unlink($path);
+					return TRUE;
+				}
+			} else {
 				unlink($path);
 				return TRUE;
-	        };
-        }else{
-        	return FALSE;
-        };
+			};
+		} else {
+			return FALSE;
+		};
 	};
 }
 
@@ -41,15 +40,14 @@ if (! function_exists('unlink_safe'))
  * @param	string	$returnstring 	(Optional) the return value for selected option
  * @return	return string selected="true" for equal value ($value==$selectvalue).
  */
- 
-if (! function_exists('input_select'))
-{
+
+if (!function_exists('input_select')) {
 	function input_select($value, $selectvalue, $returnstring = 'selected="true"')
 	{
-		if ($value==NULL || $selectvalue == NULL) {
+		if ($value == NULL || $selectvalue == NULL) {
 			return NULL;
 		};
-		if($value == $selectvalue){
+		if ($value == $selectvalue) {
 			return $returnstring;
 		};
 	}
@@ -67,24 +65,23 @@ if (! function_exists('input_select'))
  * @param	bool	(Optional) resultToUpperCase 	convert to upercase
  * @return	return single char. ( A ~ Z )
  */
- 
-if (! function_exists('columnLetter'))
-{
+
+if (!function_exists('columnLetter')) {
 	function columnLetter($index, $resultToUpperCase = FALSE)
 	{
 		$c = intval($index);
-	    if ($c <= 0) return NULL;
+		if ($c <= 0) return NULL;
 
-	    $letter = '';
-	             
-	    while($c != 0){
-	       $p = ($c - 1) % 26;
-	       $c = intval(($c - $p) / 26);
-	       $letter = chr(65 + $p) . $letter;
-	    }
-	    if ($resultToUpperCase) $letter = strtoupper($letter);
-	    
-	    return $letter;
+		$letter = '';
+
+		while ($c != 0) {
+			$p = ($c - 1) % 26;
+			$c = intval(($c - $p) / 26);
+			$letter = chr(65 + $p) . $letter;
+		}
+		if ($resultToUpperCase) $letter = strtoupper($letter);
+
+		return $letter;
 	}
 }
 
@@ -98,36 +95,34 @@ if (! function_exists('columnLetter'))
  * @param	string	format 	(Optional) string output format
  * @return	type	
  */
- 
-if (! function_exists('timeLog'))
-{
+
+if (!function_exists('timeLog')) {
 	function timeLog($inputDate, $format = "%d days, %m months, %Y years, %H Hour %i minutes %s seconds")
 	{
-		if(trim($inputDate)==NULL) return NULL;
+		if (trim($inputDate) == NULL) return NULL;
 		$date = NULL;
 
 		if (strpos($inputDate, "-") !== FALSE || strpos($inputDate, "/") !== FALSE) {
 			$date = format_date($inputDate);
-		}else{
+		} else {
 			// timestapms
 			$date = date("Y-m-d H:i:s", $inputDate);
 		};
-
-		
 	}
 }
 
-function format_number($number){
+function format_number($number)
+{
 	$result = $number;
-	if(strpos($number, ",")!==FALSE){
+	if (strpos($number, ",") !== FALSE) {
 		$listNumber = explode(",", $number);
 
 		$result = number_format($listNumber[0]);
 		$result = str_replace(",", ".", $result);
 		foreach ($listNumber as $value) {
-			$result .= ",". $value;
+			$result .= "," . $value;
 		}
-	}else{
+	} else {
 		$result = number_format($number);
 		$result = str_replace(",", ".", $result);
 	};
@@ -135,36 +130,40 @@ function format_number($number){
 	return $result;
 }
 
-function set_timezone($zone = 'Asia/Jakarta'){
+function set_timezone($zone = 'Asia/Jayapura')
+{
 	date_default_timezone_set($zone);
 }
 
-function format_date($date){
+function format_date($date)
+{
 
-	if(trim($date)==NULL){return NULL;};
+	if (trim($date) == NULL) {
+		return NULL;
+	};
 	$c = array();
-	$d=NULL;
-	$m=NULL;
-	$Y=NULL;
+	$d = NULL;
+	$m = NULL;
+	$Y = NULL;
 	$time = NULL;
-	
+
 	if (strpos($date, " ") !== FALSE) {
 		$e = (explode(" ", $date));
 		$date = $e[0];
 		$time = " " . $e[1];
 	}
 
-	if(strpos($date, "-")!==FALSE){
+	if (strpos($date, "-") !== FALSE) {
 		$c = explode("-", $date);
-	}else{
+	} else {
 		$c = explode("/", $date);
 	};
 
-	if(strlen($c[0]) >= 4){
+	if (strlen($c[0]) >= 4) {
 		$d = $c[2];
 		$m = $c[1];
 		$Y = $c[0];
-	}else if($c[1] >= 13){
+	} else if ($c[1] >= 13) {
 		$d = $c[1];
 		$m = $c[0];
 		$Y = $c[2];
@@ -172,30 +171,33 @@ function format_date($date){
 		$d = $c[0];
 		$m = $c[1];
 		$Y = $c[2];
-	}else{
+	} else {
 		return $date;
 	}
 
-	return $d."-".$m."-".$Y.$time;
+	return $d . "-" . $m . "-" . $Y . $time;
 }
 
-function format_date_from_string($date, $oldformat){
+function format_date_from_string($date, $oldformat)
+{
 
-	if(trim($date)==NULL){return NULL;};
+	if (trim($date) == NULL) {
+		return NULL;
+	};
 	$c = array();
 	$f = array();
 
-	$sp = strpos($oldformat, "-")!==FALSE?"-":"/";
-	$sp2 = strpos($date, "-")!==FALSE?"-":"/";
+	$sp = strpos($oldformat, "-") !== FALSE ? "-" : "/";
+	$sp2 = strpos($date, "-") !== FALSE ? "-" : "/";
 	$c = explode($sp2, $date);
 	$f = explode($sp, $oldformat);
 
-	$d=NULL;
-	$m=NULL;
-	$Y=NULL;
+	$d = NULL;
+	$m = NULL;
+	$Y = NULL;
 	$result = NULL;
 
-	for ($i=0; $i < 3; $i++) { 
+	for ($i = 0; $i < 3; $i++) {
 		if (isset($f[$i])) {
 			switch (strtolower($f[$i])) {
 				case 'd':
@@ -211,51 +213,61 @@ function format_date_from_string($date, $oldformat){
 					$d = $c[$i];
 					break;
 			}
-		}else{
+		} else {
 			$result = $date;
 			break;
 		}
 	}
-	$result = $d."-".$m."-".$Y;
+	$result = $d . "-" . $m . "-" . $Y;
 
 	return $result;
 }
 
-function get_year($date){
-	if($date==NULL){return NULL;};
-	$sp = strpos($date, '-')!==FALSE?'-':'/';
+function get_year($date)
+{
+	if ($date == NULL) {
+		return NULL;
+	};
+	$sp = strpos($date, '-') !== FALSE ? '-' : '/';
 	$res = explode($sp, $date)[2];
 	return $res;
 }
 
-function get_month($date){
-	if($date==NULL){return NULL;};
-	$sp = strpos($date, '-')!==FALSE?'-':'/';
+function get_month($date)
+{
+	if ($date == NULL) {
+		return NULL;
+	};
+	$sp = strpos($date, '-') !== FALSE ? '-' : '/';
 	$res = explode($sp, $date)[1];
 	return $res;
 }
 
-function get_str_month($index){
+function get_str_month($index)
+{
 	$sbulan = array('', 'January', "February", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
-	if($index<=count($sbulan)){
-		$index = $index*1;
+	if ($index <= count($sbulan)) {
+		$index = $index * 1;
 		return $sbulan[$index];
-	}else{
+	} else {
 		return NULL;
 	}
 }
 
-function get_day($date){
-	if($date==NULL){return NULL;};
-	$sp = strpos($date, '-')!==FALSE?'-':'/';
+function get_day($date)
+{
+	if ($date == NULL) {
+		return NULL;
+	};
+	$sp = strpos($date, '-') !== FALSE ? '-' : '/';
 	$res = explode($sp, $date)[0];
 	return $res;
 }
 
-function get_str_day($date=NULL)
+function get_str_day($date = NULL)
 {
 	$result = NULL;
-	if($date==NULL){
+	if ($date == NULL) {
 		switch (date("w")) {
 			case '0':
 				$result = "Minggu";
@@ -282,7 +294,7 @@ function get_str_day($date=NULL)
 				$result = NULL;
 				break;
 		};
-	}else{
+	} else {
 		switch (date("w", mktime(0, 0, 0, get_month($date), get_day($date), get_year($date)))) {
 			case '0':
 				$result = "Minggu";
@@ -310,11 +322,14 @@ function get_str_day($date=NULL)
 				break;
 		};
 	}
-	return $result;	
+	return $result;
 };
 
-function date_passed($date, $onequal = 1){
-	if($date == NULL){return FALSE;};
+function date_passed($date, $onequal = 1)
+{
+	if ($date == NULL) {
+		return FALSE;
+	};
 	$date = format_date($date);
 
 	$dY = date("Y");
@@ -324,57 +339,69 @@ function date_passed($date, $onequal = 1){
 	$nM = get_month($date);
 	$nd = get_day($date);
 
-	if($dY > $nY){return "1";};
-	if($dM > $nM && $dY == $nY){return "1";};
-	if($dd > $nd && $dM == $nM && $dY == $nY){return "1";};
-	if($onequal == TRUE && $dd == $nd && $dM == $nM && $dY == $nY){return "1";};
+	if ($dY > $nY) {
+		return "1";
+	};
+	if ($dM > $nM && $dY == $nY) {
+		return "1";
+	};
+	if ($dd > $nd && $dM == $nM && $dY == $nY) {
+		return "1";
+	};
+	if ($onequal == TRUE && $dd == $nd && $dM == $nM && $dY == $nY) {
+		return "1";
+	};
 	return "0";
 }
 
-function str_sentence($str){
+function str_sentence($str)
+{
 	$c = explode(" ", $str);
 	$res = NULL;
 	foreach ($c as $value) {
-		$res .= strtoupper(substr($value, 0,1)).strtolower(substr($value, 1))." ";
+		$res .= strtoupper(substr($value, 0, 1)) . strtolower(substr($value, 1)) . " ";
 	};
 	$res = trim($res);
 	return $res;
 };
 
-function str_shortened($str, $lenght, $ext = "..."){
+function str_shortened($str, $lenght, $ext = "...")
+{
 	$res = NULL;
-	if(strlen($str)>$lenght){
-		$res = substr($str, 0, $lenght).$ext;
-	}else{
+	if (strlen($str) > $lenght) {
+		$res = substr($str, 0, $lenght) . $ext;
+	} else {
 		$res = $str;
 	}
 	return $res;
 }
 
-function increase_date($date, $increament){
-	$d = strtotime("+$increament day", strtotime(get_year($date)."-".get_month($date)."-".get_day($date)));
+function increase_date($date, $increament)
+{
+	$d = strtotime("+$increament day", strtotime(get_year($date) . "-" . get_month($date) . "-" . get_day($date)));
 	return date("d-m-Y", $d);
 }
 
-function increase_date_defaultformat($date, $increament){
-	$d = strtotime("+$increament day", strtotime(get_year($date)."-".get_month($date)."-".get_day($date)));
+function increase_date_defaultformat($date, $increament)
+{
+	$d = strtotime("+$increament day", strtotime(get_year($date) . "-" . get_month($date) . "-" . get_day($date)));
 	return date("Y-m-d", $d);
 }
 
-function is_odd($number){
-	if($number % 2 == 0){ 
-        return false;
-    } 
-    else{ 
-        return true;
-    }
+function is_odd($number)
+{
+	if ($number % 2 == 0) {
+		return false;
+	} else {
+		return true;
+	}
 }
 
-function is_even($number){
-	if($number % 2 == 0){ 
-        return true;
-    } 
-    else{ 
-        return false;
-    }
+function is_even($number)
+{
+	if ($number % 2 == 0) {
+		return true;
+	} else {
+		return false;
+	}
 }

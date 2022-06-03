@@ -14,7 +14,7 @@ class API extends CI_Controller
             die();
         }
         parent::__construct();
-        set_timezone("Asia/Jakarta");
+        set_timezone("Asia/Jayapura");
     }
 
     public function index()

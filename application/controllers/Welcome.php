@@ -26,7 +26,7 @@ class Welcome extends CI_Controller
         $this->load->model('Jadwal_model');
         $this->load->model('Jadwal_view_model');
         $this->load->model('Tata_ibadah_model');
-        set_timezone("Asia/Jakarta");
+        set_timezone("Asia/Jayapura");
     }
 
     public function index()

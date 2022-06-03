@@ -15,7 +15,7 @@ class Users extends CI_Controller
         }
         $this->load->model('Users_model');
         $this->load->library('form_validation');
-        set_timezone("Asia/Jakarta");
+        set_timezone("Asia/Jayapura");
     }
 
     public function index()
@@ -122,24 +122,24 @@ class Users extends CI_Controller
                 'level' => $this->input->post('level', TRUE),
             );
 
-            if($u != $this->input->post('oldusername', TRUE)){
-                if($this->db->where("username", $u)->get("users")->row()) {
+            if ($u != $this->input->post('oldusername', TRUE)) {
+                if ($this->db->where("username", $u)->get("users")->row()) {
                     $this->session->set_flashdata('err_username', '<span class="text-danger">Username ini telah digunakan</span>');
                     $this->update(urlencode($this->input->post('oldusername', TRUE)));
                     return FALSE;
-                }else{
+                } else {
                     $data["username"] = $u;
                 }
             }
 
-            if($p != NULL){
+            if ($p != NULL) {
                 $p = md5($p);
                 $data["password"] = $p;
             }
 
             $this->Users_model->update($this->input->post('oldusername', TRUE), $data);
 
-            if($this->session->userdata('username') == $this->input->post('oldusername', TRUE)) {
+            if ($this->session->userdata('username') == $this->input->post('oldusername', TRUE)) {
                 $this->session->set_userdata($data);
             }
 
