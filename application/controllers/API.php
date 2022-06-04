@@ -72,6 +72,6 @@ class API extends CI_Controller
     }
     public function getTime()
     {
-        echo json_encode(array('time'=>strtotime("-2 hours")));
+        echo json_encode(array('time'=>strtotime("+2 hours")));
     }
 }
