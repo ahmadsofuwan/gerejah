@@ -26,7 +26,7 @@ class Notifikasi_view_model extends CI_Model
     // get all
     function get_hari_ini()
     {
-        $now = date('d-m-Y 00:00:00', strtotime('now'));
+        $now =strtotime(date('d-m-Y 00:00:00', strtotime('now')));
         $this->db->select("notifikasi_view.*, jadwal_view.kode, jadwal_view.rayon, jadwal_view.tgl, jadwal_view.tempat, jadwal_view.pemimpin, jadwal_view.pesan, jadwal_view.terkirim");
         $this->db->join("jadwal_view", "notifikasi_view.id_jenis_ibadah=jadwal_view.id_jenis_ibadah");
         $this->db->where("jadwal_view.tgl BETWEEN " . $now . " AND " . strtotime(date("d-m-Y 23:59:59")), NULL, FALSE);
